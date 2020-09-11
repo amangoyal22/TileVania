@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     //config
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private float jumpSpeed = 5f;
+    [SerializeField] private float climbSpeed = 5f;
 
     //state
     private bool isAlive = true;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D myRigidbody2D;
     private Animator myAnimator;
     private Collider2D myCollider2D;
+    private float gravityScale;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myCollider2D = GetComponent<Collider2D>();
+        gravityScale = GetComponent<Rigidbody2D>().gravityScale;
     }
 
     // Update is called once per frame
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour
         Run();
         FlipSprite();
         Jump();
+        ClimbLadder();
     }
 
     private void Run()
@@ -38,9 +42,27 @@ public class Player : MonoBehaviour
         float controlThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // -1 to 1
         Vector2 playerVelocity = new Vector2(controlThrow * runSpeed, myRigidbody2D.velocity.y);
         myRigidbody2D.velocity = playerVelocity;
-        
+
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody2D.velocity.x) > Mathf.Epsilon;
         myAnimator.SetBool("Running", playerHasHorizontalSpeed);
+    }
+
+    private void ClimbLadder()
+    {
+        bool isPlayerTouchingLadder = myCollider2D.IsTouchingLayers(LayerMask.GetMask("Climbing"));
+        if (!isPlayerTouchingLadder)
+        {
+            myAnimator.SetBool("Climbing", false);
+            myRigidbody2D.gravityScale = gravityScale;
+            return;
+        }
+
+        float controlThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        Vector2 climbVelocity = new Vector2(myRigidbody2D.velocity.x, climbSpeed * controlThrow);
+        myRigidbody2D.velocity = climbVelocity;
+        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody2D.velocity.y) > Mathf.Epsilon;
+        myAnimator.SetBool("Climbing", playerHasVerticalSpeed);
+        myRigidbody2D.gravityScale = 0f;
     }
 
     private void Jump()
@@ -48,7 +70,7 @@ public class Player : MonoBehaviour
         bool isPlayerTouchingGround = myCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
         if (CrossPlatformInputManager.GetButtonDown("Jump") && isPlayerTouchingGround)
         {
-            Vector2 jumpVelocityToAdd = new Vector2(0f,jumpSpeed);
+            Vector2 jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
             myRigidbody2D.velocity += jumpVelocityToAdd;
         }
     }
