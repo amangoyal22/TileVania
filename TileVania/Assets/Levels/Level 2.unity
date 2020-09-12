@@ -5183,8 +5183,9 @@ PolygonCollider2D:
     - - {x: -17.921413, y: 13.051609}
       - {x: -17.921339, y: 13.167043}
       - {x: -17.909115, y: -7.077444}
-      - {x: 14.941005, y: -6.920048}
-      - {x: 15.020403, y: 12.805146}
+      - {x: 18.021828, y: -7.034156}
+      - {x: 18.02523, y: -7.034156}
+      - {x: 18.10125, y: 13.033359}
 --- !u!95 &585634803 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6405659157296341686, guid: 67d182cd3ce414d69af3ff00670428ff,
@@ -10423,12 +10424,12 @@ PrefabInstance:
     - target: {fileID: 7724382501062358097, guid: b0f0fb00a472e44e7854ecfd726bda83,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -85.73021
+      value: -9.027107
       objectReference: {fileID: 0}
     - target: {fileID: 7724382501062358097, guid: b0f0fb00a472e44e7854ecfd726bda83,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9854667
+      value: 7.4437847
       objectReference: {fileID: 0}
     - target: {fileID: 7724382501602631146, guid: b0f0fb00a472e44e7854ecfd726bda83,
         type: 3}
