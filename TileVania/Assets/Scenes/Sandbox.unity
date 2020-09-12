@@ -9465,17 +9465,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 585634802, guid: 67d182cd3ce414d69af3ff00670428ff, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 585634807, guid: 67d182cd3ce414d69af3ff00670428ff, type: 3}
       propertyPath: deathKick.x
-      value: 250
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 585634807, guid: 67d182cd3ce414d69af3ff00670428ff, type: 3}
       propertyPath: deathKick.y
-      value: 250
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6405659157296341681, guid: 67d182cd3ce414d69af3ff00670428ff,
         type: 3}
