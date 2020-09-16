@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     private BoxCollider2D myFeet;
     private float gravityScale;
 
+    protected Joystick joystick;
+    protected Joybutton joybutton;
+
     void Start()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
@@ -28,6 +31,8 @@ public class Player : MonoBehaviour
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeet = GetComponent<BoxCollider2D>();
         gravityScale = GetComponent<Rigidbody2D>().gravityScale;
+        joystick = FindObjectOfType<Joystick>();
+        joybutton = FindObjectOfType<Joybutton>();
     }
 
     // Update is called once per frame
@@ -45,7 +50,8 @@ public class Player : MonoBehaviour
 
     private void Run()
     {
-        float controlThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // -1 to 1
+        // float controlThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // -1 to 1
+        float controlThrow = joystick.Horizontal; // -1 to 1
         Vector2 playerVelocity = new Vector2(controlThrow * runSpeed, myRigidbody2D.velocity.y);
         myRigidbody2D.velocity = playerVelocity;
 
@@ -63,7 +69,8 @@ public class Player : MonoBehaviour
             return;
         }
 
-        float controlThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        // float controlThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        float controlThrow = joystick.Vertical;
         Vector2 climbVelocity = new Vector2(myRigidbody2D.velocity.x, climbSpeed * controlThrow);
         myRigidbody2D.velocity = climbVelocity;
         bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody2D.velocity.y) > Mathf.Epsilon;
